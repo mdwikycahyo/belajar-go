@@ -30,7 +30,10 @@ func (h *CategoryHandler) HandleCategories(w http.ResponseWriter, r *http.Reques
 }
 
 func (h *CategoryHandler) GetAll(w http.ResponseWriter, r *http.Request) {
-	categories, err := h.service.GetAll()
+	// Extract search query parameter
+	search := r.URL.Query().Get("search")
+
+	categories, err := h.service.GetAll(search)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

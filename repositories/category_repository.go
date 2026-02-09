@@ -14,10 +14,19 @@ func NewCategoryRepository(db *sql.DB) *CategoryRepository {
 	return &CategoryRepository{db: db}
 }
 
-func (repo *CategoryRepository) GetAll() ([]models.Category, error) {
+func (repo *CategoryRepository) GetAll(search string) ([]models.Category, error) {
 	query := "SELECT id, name, description FROM categories"
+	var rows *sql.Rows
+	var err error
 
-	rows, err := repo.db.Query(query)
+	if search != "" {
+		query += " WHERE name ILIKE $1 OR description ILIKE $1"
+		searchPattern := "%" + search + "%"
+		rows, err = repo.db.Query(query, searchPattern)
+	} else {
+		rows, err = repo.db.Query(query)
+	}
+
 	if err != nil {
 		return nil, err
 	}

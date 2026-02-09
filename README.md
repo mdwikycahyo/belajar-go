@@ -5,6 +5,7 @@ A simple REST API for managing product categories built with Go.
 ## Getting Started
 
 ### Prerequisites
+
 - Go 1.25.6 or higher
 
 ### Installation
@@ -12,6 +13,7 @@ A simple REST API for managing product categories built with Go.
 1. Clone the repository
 2. Navigate to the project directory
 3. Run the server:
+
 ```bash
 go run main.go
 ```
@@ -21,10 +23,12 @@ The server will start on `http://localhost:8080`
 ## Available Endpoints
 
 ### Health Check
+
 - **Method:** `GET`
 - **Path:** `/health`
 - **Description:** Check if the API is running
 - **Response:**
+
 ```json
 {
   "status": "OK",
@@ -33,10 +37,17 @@ The server will start on `http://localhost:8080`
 ```
 
 ### Get All Categories
+
 - **Method:** `GET`
 - **Path:** `/api/categories`
 - **Description:** Retrieve all categories
+- **Query Parameters:**
+  - `search` (optional): Filter categories by name or description (case-insensitive)
+- **Examples:**
+  - Get all categories: `GET /api/categories`
+  - Search for categories: `GET /api/categories?search=electronics`
 - **Response:**
+
 ```json
 [
   {
@@ -58,17 +69,21 @@ The server will start on `http://localhost:8080`
 ```
 
 ### Create a New Category
+
 - **Method:** `POST`
 - **Path:** `/api/categories`
 - **Description:** Create a new category
 - **Request Body:**
+
 ```json
 {
   "name": "Home & Garden",
   "description": "Furniture and household items"
 }
 ```
+
 - **Response:** `201 Created`
+
 ```json
 {
   "id": 4,
@@ -78,11 +93,13 @@ The server will start on `http://localhost:8080`
 ```
 
 ### Get a Specific Category
+
 - **Method:** `GET`
 - **Path:** `/api/categories/{id}`
 - **Description:** Retrieve a category by ID
 - **Example:** `GET /api/categories/1`
 - **Response:**
+
 ```json
 {
   "id": 1,
@@ -92,18 +109,22 @@ The server will start on `http://localhost:8080`
 ```
 
 ### Update a Category
+
 - **Method:** `PUT`
 - **Path:** `/api/categories/{id}`
 - **Description:** Update an existing category
 - **Example:** `PUT /api/categories/1`
 - **Request Body:**
+
 ```json
 {
   "name": "Electronics & Gadgets",
   "description": "Updated description"
 }
 ```
+
 - **Response:**
+
 ```json
 {
   "id": 1,
@@ -113,11 +134,13 @@ The server will start on `http://localhost:8080`
 ```
 
 ### Delete a Category
+
 - **Method:** `DELETE`
 - **Path:** `/api/categories/{id}`
 - **Description:** Delete a category by ID
 - **Example:** `DELETE /api/categories/1`
 - **Response:**
+
 ```json
 {
   "message": "Category deleted successfully"
@@ -143,6 +166,7 @@ type Category struct {
 ## Default Categories
 
 The API comes with three pre-loaded categories:
+
 1. Electronics - Devices and gadgets
 2. Books - Printed and digital books
 3. Clothing - Apparel and accessories
